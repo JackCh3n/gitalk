@@ -2929,7 +2929,6 @@ var axiosJSON = exports.axiosJSON = _axios2.default.create({
     'Accept': 'application/json'
   }
 });
-
 var axiosGithub = exports.axiosGithub = _axios2.default.create({
   baseURL: 'https://download.123yes.me',
   headers: {
@@ -6576,7 +6575,7 @@ var GitalkComponent = function (_Component) {
       return _this.getIssue().then(function (issue) {
         if (!issue) return;
 
-        return _util.axiosGithub.get(issue.comments_url, {
+        return _util.axiosGithub.get(issue.comments_url.replace('api.github.com','download.123yes.me'), {
           headers: {
             Accept: 'application/vnd.github.v3.full+json'
           },
@@ -6788,7 +6787,7 @@ var GitalkComponent = function (_Component) {
       pagerDirection: 'last', // last or first
       createIssueManually: false,
       distractionFreeMode: false,
-      proxy: 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+      proxy: 'https://github-api.0o.workers.dev/https://github.com/login/oauth/access_token',
       flipMoveOptions: {
         staggerDelayBy: 150,
         appearAnimation: 'accordionVertical',
@@ -7057,7 +7056,9 @@ var GitalkComponent = function (_Component) {
 
 
       return this.getIssue().then(function (issue) {
-        return _util.axiosGithub.post(issue.comments_url, {
+
+        console.log('2---'+issue.comments_url)
+        return _util.axiosGithub.post(issue.comments_url.replace('api.github.com','download.123yes.me'), {
           body: comment
         }, {
           headers: {
@@ -7243,10 +7244,11 @@ var GitalkComponent = function (_Component) {
           previewHtml = _state3.previewHtml,
           isPreview = _state3.isPreview;
 
+
       return _react2.default.createElement(
         'div',
         { className: 'gt-header', key: 'header' },
-        user ? _react2.default.createElement(_avatar2.default, { className: 'gt-header-avatar', src: user.avatar_url, alt: user.login, onError: this.handleImageErrored.bind(this) }) : _react2.default.createElement(
+        user ? _react2.default.createElement(_avatar2.default, { className: 'gt-header-avatar', src: 'https://github-api.0o.workers.dev/'+user.avatar_url, alt: user.login, onError: this.handleImageErrored.bind(this) }) : _react2.default.createElement(
           'a',
           { className: 'gt-avatar-github', onMouseDown: this.handleLogin },
           _react2.default.createElement(_svg2.default, { className: 'gt-ico-github', name: 'github' })
@@ -12129,7 +12131,7 @@ var Comment = function (_Component) {
           }, className: 'gt-comment ' + (isAdmin ? 'gt-comment-admin' : '') },
         _react2.default.createElement(_avatar2.default, {
           className: 'gt-comment-avatar',
-          src: comment.user && comment.user.avatar_url,
+          src: comment.user && 'https://github-api.0o.workers.dev/'+comment.user.avatar_url,
           alt: comment.user && comment.user.login,
           onError: this.handleImageErrored.bind(this)
         }),
