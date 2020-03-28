@@ -2256,7 +2256,7 @@ var axiosJSON = exports.axiosJSON = _axios2.default.create({
 });
 
 var axiosGithub = exports.axiosGithub = _axios2.default.create({
-  baseURL: 'https://api.github.com',
+  baseURL: 'https://download.123yes.me',
   headers: {
     'Accept': 'application/json'
   }
